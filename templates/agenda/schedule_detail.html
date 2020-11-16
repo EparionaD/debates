@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Debates | {{ schedule.title }}{% endblock title %}
+
+{% block script %}
+    <script src=" {% static '/js/debates/articulo.js' %} "></script>
+{% endblock script %}
+
+{% block content %}
+    <main>
+        <article class="container-fluid articulodetalle">
+            <div class="row contenedordetalle">
+                <div class="col-12">
+                    <div class="contenedordetalle__contenedorcabecera">
+                        <div class="mb-2">
+                            {% for seccion in schedule.category.all %}
+                                <a href="{% url 'schedule:schedule_all' %}" class="contenedordetalle__enlace">
+                                    <span class="articuloresumen__categoria font-weight-bold mr-3">{{ seccion.name }}</span>
+                                </a>
+                            {% endfor %}
+                            <span class="mr-1 font-weight-bold articuloresumen__icono"><i class="far fa-clock"></i></span>
+                            <span class="articuloresumen__fecha font-weight-bold">{{ schedule.date|date:"d \d\e F \d\e\l Y" }}</span>
+                        </div>
+                        <h1 class="contenedordetalle__titulo">{{ schedule.title }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3 foros justify-content-center">
+                <div class="col-12 col-lg-10 foros__video">
+                    <p class="contenedordetalle__bajada">{{ schedule.descent }}</p>
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock content %}

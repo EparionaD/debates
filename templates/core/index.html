@@ -1,0 +1,299 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Debates | Inicio{% endblock title %}
+
+{% block content %}
+    <main>
+        <div id="noticiaprincipal" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+            {% for number in all_news|slice:":3" %}
+                <li data-target="#noticiaprincipal" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+            {% endfor %}
+            </ol>
+            <div class="carousel-inner">
+            {% for new in all_news|slice:":3" %}
+                <article class="carousel-item noticiaprincipal {% if forloop.first %}active{% endif %}">
+                    <div class="noticiaprincipal__contenedor oscuro">
+                        <img loading="lazy" class="noticiaprincipal__imagen" src="{{ new.photo_main.url }}" class="d-block w-100" alt="{{ new.title }}">
+                    </div>
+                    <div class="carousel-caption noticiaprincipal__texto">
+                    {% for seccion in new.category.all %}
+                        {% if seccion.slug == "observatorio" %}
+                            <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                        {% elif seccion.slug == "nueva-normalidad" %}
+                            <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                        {% elif seccion.slug == "galeria-audiovisual" %}
+                            <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name }}</a>
+                        {% elif seccion.slug == "foros-en-vivo" %}
+                            <a class="categorias" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                        {% elif seccion.slug == "opinion" %}
+                            <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                        {% elif seccion.slug == "debates" %}
+                            <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% for enlace_principal in new.category.all %}
+                        {% if enlace_principal.slug == "observatorio" %}
+                            <a class="noticiaprincipal__enlace" href="{% url 'article:article-detail' new.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ new.title }}</h5>
+                            </a>
+                        {% elif enlace_principal.slug == "nueva-normalidad" %}
+                            <a class="noticiaprincipal__enlace" href="{% url 'article:article-detail' new.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ new.title }}</h5>
+                            </a>
+                        {% elif enlace_principal.slug == "galeria-audiovisual" %}
+                            <a class="noticiaprincipal__enlace" href="{% url 'gallery:gallery-detail' new.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ new.title }}</h5>
+                            </a>
+                        {% elif enlace_principal.slug == "foros-en-vivo" %}
+                            <a class="noticiaprincipal__enlace" href="{% url 'forum:forum-detail' new.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ new.title }}</h5>
+                            </a>
+                        {% elif enlace_principal.slug == "opinion" %}
+                            <a class="noticiaprincipal__enlace" href="{% url 'article:article-detail' new.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ new.title }}</h5>
+                            </a>
+                        {% elif enlace_principal.slug == "debates" %}
+                            <a class="noticiaprincipal__enlace" href="{% url 'article:article-detail' new.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ new.title }}</h5>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                        <p class="noticiaprincipal__parrafo d-none d-sm-none d-md-none d-lg-block d-xl-block">{{ new.descent }}</p>
+                    </div>
+                </article>
+            {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#noticiaprincipal" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#noticiaprincipal" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <section class="container my-3">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3 mb-lg-0">
+                {% for normalidad in all_normalidad|slice:":1" %}
+                    <article class="card text-white articulos" id ="noticia-1">
+                        <div class="articulos__contenedor oscuro">
+                            <img loading="lazy" class="articulos__img card-img img-fluid" src="{{ normalidad.photo_main.url }}" alt="{{ normalidad.title }}">
+                        </div>
+                        <div class="card-img-overlay articulos__detalle">
+                            <div class="articulos__secciones">
+                            {% for seccion in normalidad.category.all %}
+                                <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                            {% endfor %}
+                            </div>
+                            <div class="articulos__contenido">
+                                <a class="articulos__enlace" href="{% url 'article:article-detail' normalidad.slug %}">
+                                    <h5 class="card-title articulos__titulo">{{ normalidad.title }}</h5>
+                                </a>
+                                <p class="card-text articulos__cuerpo">{{ normalidad.descent }}</p>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 d-flex flex-column justify-content-between">
+                    <div class="row mb-3 mb-lg-0">
+                        <div class="col-12">
+                        {% for debates in all_debates|slice:":1" %}
+                            <article loading="lazy" class="articulos1 p-4 oscuro" id ="noticia-2" style="background-image: url('{{ debates.photo_main.url }}');">
+                                <div class="articulos1__categoria">
+                                    {% for seccion in debates.category.all %}
+                                        <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                                    {% endfor %}
+                                </div>
+                                <div class="articulos1__contenedor">
+                                    <a class="articulos1__enlace" href="{% url 'article:article-detail' debates.slug %}">
+                                        <h5 class="articulos1__titulo">{{ debates.title }}</h5>
+                                    </a>
+                                </div>
+                            </article>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                        {% for forum in all_forum %}
+                            <article loading="lazy" class="articulos1 p-4 oscuro" id ="noticia-3" style="background-image: url('{{ forum.photo_main.url }}');">
+                                <div class="articulos1__categoria">
+                                    {% for seccion in forum.category.all %}
+                                        <a class="categorias" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                                    {% endfor %}
+                                </div>
+                                <div class="articulos1__contenedor">
+                                    <a class="articulos1__enlace" href="{% url 'forum:forum-detail' forum.slug %}">
+                                        <h5 class="articulos1__titulo">{{ forum.title }}</h5>
+                                    </a>
+                                </div>
+                            </article>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <article id="galeria" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                {% for cant in all_gallery|slice:":3" %}
+                    <li data-target="#galeria" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                {% for galerias in all_gallery|slice:":3" %}
+                    <div class="carousel-item noticiaprincipal {% if forloop.first %}active{% endif %}">
+                        <div class="noticiaprincipal__contenedor oscuro">
+                            <img loading="lazy" class="noticiaprincipal__imagen noticiaprincipal__imagen--altura" src="{{ galerias.photo_main.url }}" class="d-block w-100" alt="{{ galerias.title }}">
+                        </div>
+                        <div class="carousel-caption noticiaprincipal__texto noticiaprincipal__texto--altura" id="galeriatexto">
+                            <div>
+                                {% for seccion in galerias.category.all %}
+                                    <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name }}</a>
+                                {% endfor %}
+                            </div>
+                            <a class="noticiaprincipal__enlace" href="{% url 'gallery:gallery-detail' galerias.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ galerias.title }}</h5>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#galeria" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#galeria" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </article>
+        </section>
+        <section class="container my-3">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7" id ="observatorio">
+                {% for observatorio in all_observatorio|slice:":1" %}
+                    <article class="card text-white articulos articulos--altura">
+                        <div class="articulos__contenedor oscuro">
+                            <img loading="lazy" class="articulos__img card-img img-fluid articulos__img--altura" src="{{ observatorio.photo_main.url }}" alt="{{ observatorio.title }}">
+                        </div>
+                        <div class="card-img-overlay articulos__detalle">
+                            <div class="articulos__secciones">
+                                {% for seccion in observatorio.category.all %}
+                                    <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                                {% endfor %}
+                            </div>
+                            <div class="articulos__contenido">
+                                <a class="articulos__enlace" href="{% url 'article:article-detail' observatorio.slug %}">
+                                    <h5 class="card-title articulos__titulo">{{ observatorio.title }}</h5>
+                                </a>
+                                <p class="card-text articulos__cuerpo">{{ observatorio.descent }}</p>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 mt-3 mt-sm-3 mt-md-3 mt-lg-0 mt-xl-0" id="agenda">
+                    <div class="border border-dark p-3">
+                    {% for nom_agenda in all_schedule|slice:":1" %}
+                        {% for cat in nom_agenda.category.all %}
+                            <a class="categorias" href="{% url 'schedule:schedule_all' %}">{{ cat.name }}</a>
+                        {% endfor %}
+                    {% endfor %}
+                        <div class="mt-3">
+                        {% for agenda in all_schedule|slice:":4" %}
+                            <article class="card mb-3 agenda">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4 agenda__contenedor">
+                                        <img loading="lazy" class="agenda__img img-fluid" src="{{ agenda.photo_main.url }}" alt="{{ agenda.title }}">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="agenda__texto">
+                                            <p class="agenda__fecha mt-2 mt-lg-0">{{ agenda.date|date:"d/m/Y"}}</p>
+                                            <a class="agenda__enlace" href="{% url 'schedule:schedule-detail' agenda.slug %}">
+                                                <h5 class="agenda__titulo">{{ agenda.title }}</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                {% for nombre_seccion in all_opinion|slice:":1" %}
+                    {% for seccion in nombre_seccion.category.all %}
+                        <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                    {% endfor %}
+                {% endfor %}
+                    <div class="border-top border-bottom border-dark my-3 pt-3">
+                    {% for opinion in all_opinion|slice:":4" %}
+                        <article class="card mb-2 agenda agenda--borde border-bottom border-secundary">
+                            <div class="row no-gutters">
+                                <div class="col-md-4 agenda__contenedor">
+                                    <img id="opinion" loading="lazy" class="agenda__img img-fluid" src="{{ opinion.photo_main.url }}" alt="{{ opinion.title }}">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="agenda__texto">
+                                        <p class="agenda__fecha mt-2 mt-lg-0">{{ opinion.author.first_name|upper }} {{ opinion.author.last_name|upper }}</p>
+                                        <a class="agenda__enlace" href="">
+                                            <h5 class="agenda__titulo">{{ opinion.title }}</h5>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                    </div>
+                    <div class="mb-3 ver">
+                        <div class="ver__contenedor mr-2">
+                            <i class="ver__icono fas fa-plus fa-xs"></i>
+                        </div>
+                        <a class="ver__enlace font-weight-bold" href="">VER MÁS</a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                {% for recent_seccion in all_news|slice:":1" %}
+                    {% for seccion in recent_seccion.category.all %}
+                        <a class="categorias" href="{% url 'article:articles' %}">MÁS RECIENTES</a>
+                    {% endfor %}
+                {% endfor %}
+                    <div class="border-top border-bottom border-dark my-3 pt-3">
+                    {% for recientes in all_news|slice:"3:7" %}
+                        <article class="card mb-2 agenda agenda--borde border-bottom border-secundary">
+                            <div class="row no-gutters">
+                                <div class="col-md-4 agenda__contenedor">
+                                    <img loading="lazy" class="agenda__img img-fluid agenda__img--altura" src="{{ recientes.photo_main.url }}" alt="{{ recientes.title }}">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="agenda__texto">
+                                        <a class="agenda__enlace" href="">
+                                            <h5 class="agenda__titulo">{{ recientes.title }}</h5>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                    </div>
+                    <div class="mb-3 ver">
+                        <div class="ver__contenedor mr-2">
+                            <i class="ver__icono fas fa-plus fa-xs"></i>
+                        </div>
+                        <a class="ver__enlace font-weight-bold" href="">VER MÁS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Debates | Foros{% endblock title %}
+
+{% block script %}
+    <script src=" {% static '/js/debates/articulo.js' %} "></script>
+{% endblock script %}
+
+{% block content %}
+    <main>
+        <article class="container-fluid articulodetalle">
+            <div class="row contenedordetalle">
+                <div class="col-12">
+                    <div class="contenedordetalle__contenedorcabecera">
+                        <div class="mb-2">
+                            {% for seccion in forum.category.all %}
+                                <a href="{% url 'forum:forums' %}" class="contenedordetalle__enlace">
+                                    <span class="articuloresumen__categoria font-weight-bold mr-3">{{ seccion.name }}</span>
+                                </a>
+                            {% endfor %}
+                            <span class="mr-1 font-weight-bold articuloresumen__icono"><i class="far fa-clock"></i></span>
+                            <span class="articuloresumen__fecha font-weight-bold">{{ forum.date|date:"d \d\e F \d\e\l Y" }}</span>
+                        </div>
+                        <h1 class="contenedordetalle__titulo">{{ forum.title }}</h1>
+                        <p class="contenedordetalle__bajada">{{ forum.descent }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3 foros">
+                <div class="col-12 col-lg-8 foros__video">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ forum.chat }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="col-12 col-lg-4 foros__chat">
+                    <iframe
+                        width="100%"
+                        height="420px"
+                        src="https://www.youtube.com/live_chat?v={{ forum.chat }}>&embed_domain=debates.pe" 
+                        frameborder="0"
+                    ></iframe>
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock content %}

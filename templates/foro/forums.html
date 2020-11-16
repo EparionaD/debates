@@ -1,0 +1,139 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Debates | Foros{% endblock title %}
+
+{% block script %}
+    <script src=" {% static '/js/debates/articulos.js' %} "></script>
+{% endblock script %}
+
+{% block content %}
+    <main>
+        <div id="noticiaprincipal" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+            {% for main in all_articles|slice:":1" %}
+                <div class="carousel-item active noticiaprincipal">
+                    <div class="noticiaprincipal__contenedor oscuro">
+                        <img loading="lazy" class="noticiaprincipal__imagen" src="{{ main.photo_main.url }}" class="d-block w-100" alt="{{ main.title }}">
+                    </div>
+                    <div class="carousel-caption noticiaprincipal__texto">
+                    {% for seccion in main.category.all %}
+                        <a class="categorias" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                    {% endfor %}
+                        <a class="noticiaprincipal__enlace" href="{% url 'forum:forum-detail' main.slug %}">
+                            <h5 class="noticiaprincipal__titulo">{{ main.title }}</h5>
+                        </a>
+                        <p class="noticiaprincipal__parrafo d-none d-sm-none d-md-none d-lg-block d-xl-block">{{ main.descent }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        <section class="container my-3">
+            <article class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3 mb-lg-0">
+                {% for segunda in all_articles|slice:"1:2" %}
+                    <div class="card text-white articulos" id ="noticia-1">
+                        <div class="articulos__contenedor oscuro">
+                            <img id="img-first" loading="lazy" class="articulos__img card-img img-fluid" src="{{ segunda.photo_main.url }}" alt="{{ segunda.title }}">
+                        </div>
+                        <div class="card-img-overlay articulos__detalle">
+                            <div class="articulos__secciones">
+                            {% for seccion in segunda.category.all %}
+                                <a class="categorias" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                            {% endfor %}
+                            </div>
+                            <div class="articulos__contenido">
+                                <a class="articulos__enlace" href="{% url 'forum:forum-detail' segunda.slug %}">
+                                    <h5 class="card-title articulos__titulo">{{ segunda.title }}</h5>
+                                </a>
+                                <p class="card-text articulos__cuerpo d-none d-md-block">{{ segunda.descent }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 d-flex flex-column justify-content-between">
+                    {% for tercera in all_articles|slice:"2:3" %}
+                    <div class="row mb-3 mb-lg-0">
+                        <div class="col-12">
+                            <div loading="lazy" class="articulos1 p-3 oscuro" id ="noticia-2" style="background-image: url('{{ tercera.photo_main.url }}');">
+                                <div class="articulos1__categoria">
+                                {% for seccion in tercera.category.all %}
+                                    <a class="categorias" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                                {% endfor %}
+                                </div>
+                                <div class="articulos1__contenedor">
+                                    <a class="articulos1__enlace" href="{% url 'forum:forum-detail' tercera.slug %}">
+                                        <h5 class="articulos1__titulo">{{ tercera.title }}</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% for cuarta in all_articles|slice:"3:4" %}
+                    <div class="row">
+                        <div class="col-12">
+                            <div loading="lazy" class="articulos1 p-3 oscuro" id ="noticia-3" style="background-image: url('{{ cuarta.photo_main.url }}');">
+                                <div class="articulos1__categoria">
+                                {% for seccion in cuarta.category.all %}
+                                    <a class="categorias" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                                {% endfor %}
+                                </div>
+                                <div class="articulos1__contenedor">
+                                    <a class="articulos1__enlace" href="{% url 'forum:forum-detail' cuarta.slug %}">
+                                        <h5 class="articulos1__titulo">{{ cuarta.title }}</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+        </section>
+        <section class="container">
+            <div class="row">
+                <span class="reciente font-weight-bold" href="">MÁS RECIENTE</span>
+                <div class="col-12 secciones">
+                    <div>
+                    {% for reciente in all_articles|slice:"4:" %}
+                        <article class="card mb-2 articuloresumen pt-3">
+                            <div class="mb-2">
+                            {% for seccion in reciente.category.all %}
+                                <a href="{% url 'forum:forums' %}" class="contenedordetalle__enlace">
+                                    <span class="articuloresumen__categoria font-weight-bold mr-3">{{ seccion.name }}</span>
+                                </a>
+                            {% endfor %}
+                                <span class="mr-1 font-weight-bold articuloresumen__icono"><i class="far fa-clock"></i></span>
+                                <span class="articuloresumen__fecha font-weight-bold">{{ reciente.date|date:"d \d\e F \d\e\l Y" }}</span>
+                            </div>
+                            <div class="row no-gutters articuloresumen__contenedor pb-3 border-bottom border-secondary">
+                                <div class="col-md-4">
+                                    <img id="opinion" loading="lazy" class="articuloresumen__img img-fluid" src="{{ reciente.photo_main.url }}" alt="{{ reciente.title }}">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="articuloresumen__contenedortexto">
+                                        <a class="articuloresumen__enlace" href="{% url 'forum:forum-detail' reciente.slug %}">
+                                            <h5 class="articuloresumen__titulo mt-3 mt-lg-0">{{ reciente.title }}</h5>
+                                        </a>
+                                        <p class="articuloresumen__resumen font-weight-bold d-block d-md-none d-lg-block">{{ reciente.descent }}</p>
+                                        <p class="articuloresumen__autor font-weight-bold">{{ reciente.author.first_name }} {{ reciente.author.last_name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                    </div>
+                    <div class="mb-3 ver">
+                        <div class="ver__contenedor mr-2">
+                            <i class="ver__icono fas fa-plus fa-xs"></i>
+                        </div>
+                        <a class="ver__enlace font-weight-bold" href="">VER MÁS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

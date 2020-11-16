@@ -1,0 +1,188 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Debates | Galerias{% endblock title %}
+
+{% block script %}
+    <script src=" {% static '/js/debates/galeria.js' %} "></script>
+{% endblock script %}
+
+{% block content %}
+    <main>
+        <div id="noticiaprincipal" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+            {% for main in all_gallery|slice:":1" %}
+                <article class="carousel-item active noticiaprincipal">
+                    <div class="noticiaprincipal__contenedor oscuro">
+                        <img loading="lazy" class="noticiaprincipal__imagen" src="{{ main.photo_main.url }}" class="d-block w-100" alt="{{ main.title }}">
+                    </div>
+                    <div class="carousel-caption noticiaprincipal__texto">
+                    {% for seccion in main.category.all %}
+                        <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name|upper }}</a>
+                    {% endfor %}
+                        <a class="noticiaprincipal__enlace" href="{% url 'gallery:gallery-detail' main.slug %}">
+                            <h5 class="noticiaprincipal__titulo">{{ main.title }}</h5>
+                        </a>
+                        <p class="noticiaprincipal__parrafo d-none d-sm-none d-md-none d-lg-block d-xl-block">{{ main.descent }}</p>
+                    </div>
+                </article>
+            {% endfor %}
+            </div>
+        </div>
+        <section class="container my-3">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3 mb-lg-0">
+                {% for second in all_gallery|slice:"1:2" %}
+                    <article class="card text-white articulos" id ="noticia-1">
+                        <div class="articulos__contenedor oscuro">
+                            <img loading="lazy" class="articulos__img card-img img-fluid" src="{{ second.photo_main.url }}" alt="{{ second.title }}">
+                        </div>
+                        <div class="card-img-overlay articulos__detalle">
+                            <div class="articulos__secciones">
+                            {% for seccion in second.category.all %}
+                                <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name|upper }}</a>
+                            {% endfor %}
+                            </div>
+                            <div class="articulos__contenido">
+                                <a class="articulos__enlace" href="{% url 'gallery:gallery-detail' second.slug %}">
+                                    <h5 class="card-title articulos__titulo">{{ second.title }}</h5>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 d-flex flex-column justify-content-between">
+                    <div class="row mb-3 mb-lg-0">
+                        <div class="col-12">
+                        {% for third in all_gallery|slice:"2:3" %}
+                            <article loading="lazy" class="articulos1 p-4 oscuro" id ="noticia-2" style="background-image: url('{{ third.photo_main.url }}');">
+                                <div class="articulos1__categoria">
+                                {% for seccion in third.category.all %}
+                                    <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name|upper }}</a>
+                                {% endfor %}
+                                </div>
+                                <div class="articulos1__contenedor">
+                                    <a class="articulos1__enlace" href="{% url 'gallery:gallery-detail' third.slug %}">
+                                        <h5 class="articulos1__titulo">{{ third.title }}</h5>
+                                    </a>
+                                </div>
+                            </article>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                        {% for fourth in all_gallery|slice:"3:4" %}
+                            <article loading="lazy" class="articulos1 p-4 oscuro" id ="noticia-3" style="background-image: url('{{ fourth.photo_main.url }}');">
+                                <div class="articulos1__categoria">
+                                {% for seccion in fourth.category.all %}
+                                    <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name|upper }}</a>
+                                {% endfor %}
+                                </div>
+                                <div class="articulos1__contenedor">
+                                    <a class="articulos1__enlace" href="{% url 'gallery:gallery-detail' fourth.slug %}">
+                                        <h5 class="articulos1__titulo">{{ fourth.title }}</h5>
+                                    </a>
+                                </div>
+                            </article>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <div id="galeria" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                {% for fifth in all_gallery|slice:"4:5" %}
+                    <article class="carousel-item active noticiaprincipal">
+                        <div class="noticiaprincipal__contenedor oscuro">
+                            <img loading="lazy" class="noticiaprincipal__imagen noticiaprincipal__imagen--altura" src="{{ fifth.photo_main.url }}" class="d-block w-100" alt="{{ fifth.title }}">
+                        </div>
+                        <div class="carousel-caption noticiaprincipal__texto noticiaprincipal__texto--altura" id="galeriatexto">
+                            <div>
+                            {% for seccion in fifth.category.all %}
+                                <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name }}</a>
+                            {% endfor %}
+                            </div>
+                            <a class="noticiaprincipal__enlace" href="{% url 'gallery:gallery-detail' fifth.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ fifth.title }}</h5>
+                            </a>
+                        </div>
+                    </article>
+                {% endfor %}
+                </div>
+            </div>
+        </section>
+        <section class="container my-3">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3 mb-lg-0">
+                {% for sixth in all_gallery|slice:"5:6" %}
+                    <article class="card text-white articulos" id ="noticia-4">
+                        <div class="articulos__contenedor oscuro">
+                            <img loading="lazy" class="articulos__img card-img img-fluid" src="{{ sixth.photo_main.url }}" alt="{{ sixth.title }}">
+                        </div>
+                        <div class="card-img-overlay articulos__detalle">
+                            <div class="articulos__secciones">
+                            {% for seccion in sixth.category.all %}
+                                <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name }}</a>
+                            {% endfor %}
+                            </div>
+                            <div class="articulos__contenido">
+                                <a class="articulos__enlace" href="{% url 'gallery:gallery-detail' sixth.slug %}">
+                                    <h5 class="card-title articulos__titulo">{{ sixth.title }}</h5>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 d-flex flex-column justify-content-between">
+                    <div class="row mb-3 mb-lg-0">
+                        <div class="col-12">
+                        {% for seventh in all_gallery|slice:"6:7" %}
+                            <article loading="lazy" class="articulos1 p-4 oscuro" id ="noticia-5" style="background-image: url('{{ seventh.photo_main.url }}');">
+                                <div class="articulos1__categoria">
+                                {% for seccion in seventh.category.all %}
+                                    <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name }}</a>
+                                {% endfor %}
+                                </div>
+                                <div class="articulos1__contenedor">
+                                    <a class="articulos1__enlace" href="{% url 'gallery:gallery-detail' seventh.slug %}">
+                                        <h5 class="articulos1__titulo">{{ seventh.title }}</h5>
+                                    </a>
+                                </div>
+                            </article>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                        {% for eighth in all_gallery|slice:"7:8" %}
+                            <article loading="lazy" class="articulos1 p-4 oscuro" id ="noticia-6" style="background-image: url('{{ eighth.photo_main.url }}');">
+                                <div class="articulos1__categoria">
+                                {% for seccion in eighth.category.all %}
+                                    <a class="categorias" href="#">{{ seccion.name }}</a>
+                                {% endfor %}
+                                </div>
+                                <div class="articulos1__contenedor">
+                                    <a class="articulos1__enlace" href="{% url 'gallery:gallery-detail' eighth.slug %}">
+                                        <h5 class="articulos1__titulo">{{ eighth.title }}</h5>
+                                    </a>
+                                </div>
+                            </article>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="my-3 ver">
+                <div class="ver__contenedor mr-2">
+                    <i class="ver__icono fas fa-plus fa-xs"></i>
+                </div>
+                <a class="ver__enlace font-weight-bold" href="">VER MÁS</a>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

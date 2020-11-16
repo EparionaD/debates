@@ -1,0 +1,89 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Debates | {{ detalle.title }}{% endblock title %}
+
+{% block script %}
+    <script src=" {% static '/js/debates/articulo.js' %} "></script>
+{% endblock script %}
+
+{% block content %}
+    <main>
+        <article class="container-fluid articulodetalle">
+            <div class="row contenedordetalle">
+                <div class="col-12">
+                    <div>
+                        <div class="contenedordetalle__contenedorcabecera">
+                            <div class="mb-2">
+                            {% for seccion in detalle.category.all %}
+                                <a href="{% url 'article:articles-category' seccion.slug %}" class="contenedordetalle__enlace">
+                                    <span class="articuloresumen__categoria font-weight-bold mr-3">{{ seccion.name }}</span>
+                                </a>
+                            {% endfor %}
+                                <span class="mr-1 font-weight-bold articuloresumen__icono"><i class="far fa-clock"></i></span>
+                                <span class="articuloresumen__fecha font-weight-bold">{{ detalle.date|date:"d \d\e F \d\e\l Y" }}</span>
+                            </div>
+                            <h1 class="contenedordetalle__titulo">{{ detalle.title }}</h1>
+                            <p class="contenedordetalle__bajada">{{ detalle.descent }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row articulodetalle__contenedorimg">
+                <img class="col-12 articulodetalle__img px-0 img-fluid" src="{{ detalle.photo_main.url }}" alt="{{ detalle.title }}">
+                <div class="articulodetalle__nota">
+                    <p class="font-weight-bold">Fuente: <span class="font-weight-normal">{{ detalle.source }}</span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 articulodetalle__contenedorcorreo mb-3">
+                    <p class="articulodetalle__nombre font-weight-bold">{{ detalle.author.first_name }} {{ detalle.author.last_name }}</p>
+                    <p class="articulodetalle__correo font-weight-bold">{{ detalle.author.email }}</p>
+                </div>
+            </div>
+            <div class="row articulodetalle__contenido">
+                <div class="col-12 col-lg-8 pl-0 articulodetalle__resumen">
+                    {{ detalle.summary|safe }}
+                </div>
+                <div class="col-12 col-lg-4 px-0">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="font-weight-bold enlace__tab nav-link active " id="reciente-tab" data-toggle="tab" href="#reciente" role="tab" aria-controls="reciente" aria-selected="true">MÁS RECIENTES</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="font-weight-bold enlace__tab nav-link" id="vistos-tab" data-toggle="tab" href="#vistos" role="tab" aria-controls="vistos" aria-selected="false">MÁS VISTOS</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class=" mb-2 tab-pane fade show active" id="reciente" role="tabpanel" aria-labelledby="reciente-tab">
+                        {% for ultimate in all_news|slice:":4" %}
+                            <div class="card py-2 agenda border-bottom border-secundary">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4 agenda__contenedor">
+                                        <img loading="lazy" class="agenda__img img-fluid agenda__img--altura" src="{{ ultimate.photo_main.url }}" alt="{{ ultimate.title }}">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="agenda__texto">
+                                            <a class="agenda__enlace" href="{% url 'article:article-detail' ultimate.slug %}">
+                                                <h5 class="agenda__titulo agenda__titulo--tam">{{ ultimate.title }}</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="tab-pane fade" id="vistos" role="tabpanel" aria-labelledby="vistos-tab">
+                            Prueba 2
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row articulodetalle__contenido">
+                <div class="col-12 px-0 articulodetalle__resumen">
+                    {{ detalle.content|safe }}
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock content %}
