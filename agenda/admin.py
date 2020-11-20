@@ -1,7 +1,14 @@
 from django.contrib import admin
 from .models import *
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
-class ScheduleAdmin(admin.ModelAdmin):
+class ScheduleResource(resources.ModelResource):
+    class Meta:
+        model = Schedule
+
+class ScheduleAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = ScheduleResource
     readonly_fields = ('created','updated')
     list_display = ('title', 'author','category_article','date')
     search_fields = ('title','summary','content','descent','author__first_name','category__name')

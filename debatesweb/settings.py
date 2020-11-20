@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     'ckeditor_uploader',
+    'import_export',
     'core',
     'category.apps.CategoryConfig',
     'author.apps.AuthorConfig',
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'debatesweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = db.SQLITE3
+DATABASES = db.POSTGRESQL
 
 
 # Password validation
