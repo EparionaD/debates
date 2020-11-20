@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'article.apps.ArticleConfig',
     'gallery.apps.GalleryConfig',
     'foro.apps.ForoConfig',
-    'agenda.apps.AgendaConfig'
+    'agenda.apps.AgendaConfig',
+    'ultimate.apps.UltimateConfig'
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [ BASE_DIR / 'static']
+#STATIC_ROOT = BASE_DIR / 'static'
 
 #Ckeditor - configuracion
 CKEDITOR_CONFIGS = {

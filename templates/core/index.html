@@ -2,6 +2,13 @@
 {% load static %}
 
 {% block title %}Debates | Inicio{% endblock title %}
+{% block carrusel %}
+    <script>
+        $('#noticia-2').carousel({
+            interval:3000
+        });
+    </script>
+{% endblock carrusel %}
 
 {% block content %}
     <main>
@@ -101,20 +108,30 @@
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 d-flex flex-column justify-content-between">
                     <div class="row mb-3 mb-lg-0">
                         <div class="col-12">
-                        {% for debates in all_debates|slice:":1" %}
-                            <article loading="lazy" class="articulos1 p-4 oscuro" id ="noticia-2" style="background-image: url('{{ debates.photo_main.url }}');">
-                                <div class="articulos1__categoria">
-                                    {% for seccion in debates.category.all %}
-                                        <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
-                                    {% endfor %}
-                                </div>
-                                <div class="articulos1__contenedor">
-                                    <a class="articulos1__enlace" href="{% url 'article:article-detail' debates.slug %}">
-                                        <h5 class="articulos1__titulo">{{ debates.title }}</h5>
-                                    </a>
+                            <article loading="lazy" class="articulos1 oscuro carousel slide" id ="noticia-2" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                {% for ultimateindi in all_ultimate %}
+                                    <li data-target="#noticia-2" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                                {% endfor %}
+                                </ol>
+                                <div class="carousel-inner ultimasnoticias">
+                                {% for ultimate in all_ultimate|slice:":8" %}
+                                    <div class="carousel-item noticiaprincipal {% if forloop.first %}active{% endif %}">
+                                        <div class="noticiaprincipal__contenedor oscuro">
+                                            <img loading="lazy" class="ultimasnoticias__img" src="{{ ultimate.photo_main.url }}" class="d-block w-100" alt="{{ ultimate.title }}">
+                                        </div>
+                                        <div class="ultimasnoticias__contenedor">
+                                            <div class="articulos1__categoria">
+                                                <a class="categorias">Últimas</a>
+                                            </div>
+                                            <a class="articulos1__enlace" href="{{ ultimate.url }}" target="_blank">
+                                                <h5 class="articulos1__titulo">{{ ultimate.title }}</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                                 </div>
                             </article>
-                        {% endfor %}
                         </div>
                     </div>
                     <div class="row">

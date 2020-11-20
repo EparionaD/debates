@@ -7,6 +7,7 @@ from gallery.models import *
 from foro.models import *
 from category.models import *
 from agenda.models import *
+from ultimate.models import *
 
 
 class IndexView(TemplateView):
@@ -29,4 +30,5 @@ class IndexView(TemplateView):
         context['all_observatorio'] = Article.objects.filter(category__slug = "observatorio")
         context['all_opinion'] = Article.objects.filter(category__slug = "opinion")
         context['all_schedule'] = Schedule.objects.all()
+        context['all_ultimate'] = Ultimate.objects.all()
         return context
