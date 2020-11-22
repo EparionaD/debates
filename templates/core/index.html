@@ -257,13 +257,13 @@
                     {% for opinion in all_opinion|slice:":4" %}
                         <article class="card mb-2 agenda agenda--borde border-bottom border-secundary">
                             <div class="row no-gutters">
-                                <div class="col-md-4 agenda__contenedor">
-                                    <img id="opinion" loading="lazy" class="agenda__img img-fluid" src="{{ opinion.photo_main.url }}" alt="{{ opinion.title }}">
+                                <div class="col-md-4 agenda__contenedor" id="opinion">
+                                    <img loading="lazy" class="agenda__img img-fluid altura" src="{{ opinion.photo_main.url }}" alt="{{ opinion.title }}">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="agenda__texto">
                                         <p class="agenda__fecha mt-2 mt-lg-0">{{ opinion.author.first_name|upper }} {{ opinion.author.last_name|upper }}</p>
-                                        <a class="agenda__enlace" href="">
+                                        <a class="agenda__enlace" href="{% url 'article:article-detail' opinion.slug %}">
                                             <h5 class="agenda__titulo">{{ opinion.title }}</h5>
                                         </a>
                                     </div>
@@ -294,7 +294,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="agenda__texto">
-                                        <a class="agenda__enlace" href="">
+                                        <a class="agenda__enlace" href="{% url 'article:article-detail' recientes.slug %}">
                                             <h5 class="agenda__titulo">{{ recientes.title }}</h5>
                                         </a>
                                     </div>

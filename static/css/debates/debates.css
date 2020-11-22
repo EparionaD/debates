@@ -70,6 +70,7 @@ p {
   background-color: #860020;
   border-radius: 5px;
   color: white;
+  font-family: 'Bebas Neue', cursive;
   padding: .2rem .3rem;
   font-size: 1.2rem; }
   .categorias:hover {
@@ -110,7 +111,7 @@ p {
   right: 3% !important; }
   @media only screen and (min-width: 992px) {
     .noticiaprincipal__texto {
-      width: 60%;
+      width: 50%;
       left: 6% !important;
       right: 6% !important; } }
   .noticiaprincipal__texto--altura {
@@ -130,10 +131,7 @@ p {
     .noticiaprincipal__titulo {
       margin-top: 3.5rem; } }
 .noticiaprincipal__parrafo {
-  font-size: calc(1.275rem + 0.3vw); }
-  @media (min-width: 1200px) {
-    .noticiaprincipal__parrafo {
-      font-size: 1.5rem; } }
+  font-size: 1.2rem; }
 
 .articulos {
   border-radius: 0rem; }
@@ -154,7 +152,7 @@ p {
     height: 320px; }
     @media only screen and (min-width: 992px) {
       .articulos__img {
-        min-height: 550px; } }
+        min-height: 624px; } }
     @media only screen and (min-width: 992px) {
       .articulos__img--altura {
         min-height: 0px; } }

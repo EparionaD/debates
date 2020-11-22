@@ -40,7 +40,7 @@ if(window.innerWidth >= 992){
     let altura = divisor*6.28;
     const alturagaleria = document.getElementById("galeria").offsetHeight;
     const alturaagenda = document.getElementById("agenda").offsetHeight;
-    const alturaopinion = document.getElementById("opinion").offsetHeight;
+    const anchoopinion = document.getElementById("opinion").clientWidth;
     
     let alturanoticia = document.getElementById("noticia-2").style.height = altura + 'px';
     let alturanoticia1 = document.getElementById("noticia-3").style.height = altura + 'px';
@@ -48,8 +48,13 @@ if(window.innerWidth >= 992){
     let alturaobservatorio = document.getElementById("observatorio").style.height = alturaagenda + 16 + 'px';
     let alturaobservatorioimagen = document.getElementsByClassName("articulos__img")[1].style.height = alturaagenda + 16 + 'px';
 
+    let alturaimgopinion = document.getElementsByClassName("altura")
+    for(i=0;i<alturaimgopinion.length; i++){
+        alturaimgopinion[i].style.height = anchoopinion + 'px';
+    }
+
     let alturaopinionimagen = document.getElementsByClassName("agenda__img--altura")
     for(i=0;i< alturaopinionimagen.length; i++){
-        alturaopinionimagen[i].style.height = alturaopinion  +'px';
+        alturaopinionimagen[i].style.height = anchoopinion  +'px';
     }
 }
