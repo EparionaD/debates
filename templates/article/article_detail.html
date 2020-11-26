@@ -2,10 +2,30 @@
 {% load static %}
 
 {% block title %}Debates | {{ detalle.title }}{% endblock title %}
+{% block meta %}
+    <meta property="og:url"           content="http://debates.pe{{ request.path }}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="{{ detalle.title }}" />
+    <meta property="og:description"   content="{{ detalle.descent }}" />
+    <meta property="og:image"         content="http://debates.pe{{ detalle.photo_main.url }}" />
+{% endblock meta %}
 
 {% block script %}
     <script src=" {% static '/js/debates/articulo.js' %} "></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock script %}
+
+{% block compartir %}
+    <script>
+        const template = document.getElementById('compartir-contenido'); 
+        tippy('#compartir', {
+            content: template.innerHTML,
+            allowHTML: true,
+            interactive: true,
+            arrow: false,
+        });
+    </script>
+{% endblock compartir %}
 
 {% block content %}
     <main>
@@ -17,22 +37,39 @@
                             <div class="mb-2">
                             {% for seccion in detalle.category.all %}
                                 <a href="{% url 'article:articles-category' seccion.slug %}" class="contenedordetalle__enlace">
-                                    <span class="articuloresumen__categoria font-weight-bold mr-3">{{ seccion.name }}</span>
+                                    <span class="articuloresumen__categoria mr-3">{{ seccion.name }}</span>
                                 </a>
                             {% endfor %}
                                 <span class="mr-1 font-weight-bold articuloresumen__icono"><i class="far fa-clock"></i></span>
-                                <span class="articuloresumen__fecha font-weight-bold">{{ detalle.date|date:"d \d\e F \d\e\l Y" }}</span>
+                                <span class="articuloresumen__fecha">{{ detalle.date|date:"d \d\e F \d\e\l Y" }}</span>
                             </div>
                             <h1 class="contenedordetalle__titulo">{{ detalle.title }}</h1>
                             <p class="contenedordetalle__bajada">{{ detalle.descent }}</p>
+                            <div class="compartir mb-3 mb-lg-0 pl-2 pl-lg-0 pr-0 pr-lg-5">
+                                <a class="compartir__enlace" href="" type="submit" id="compartir">
+                                    <i class="fas fa-share-alt fa-2x"></i>
+                                </a>
+                            </div>
+                            <div class="d-none" id="compartir-contenido">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div id="fb-root"></div>
+                                        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v9.0" nonce="XMn9qf1f"></script>
+                                        <div class="fb-share-button" data-href="http://198.199.88.200{{ request.path }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://198.199.88.200{{ request.path }}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore compartir__redes"><i class="fab fa-facebook-f fa-2x"></i></a></div>
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&text=%22{{ detalle.title }}%22&tw_p=tweetbutton&url=http://198.199.88.200{{ request.path }}" class="compartir__redes" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row articulodetalle__contenedorimg">
                 <img class="col-12 articulodetalle__img px-0 img-fluid" src="{{ detalle.photo_main.url }}" alt="{{ detalle.title }}">
-                <div class="articulodetalle__nota">
-                    <p class="font-weight-bold">Fuente: <span class="font-weight-normal">{{ detalle.source }}</span></p>
+                <div class="articulodetalle__nota pb-1 pb-lg-4">
+                    <span class="font-weight-bold articulodetalle__fuente">{{ detalle.source }}</span>
                 </div>
             </div>
             <div class="row">
@@ -50,9 +87,9 @@
                         <li class="nav-item" role="presentation">
                             <a class="font-weight-bold enlace__tab nav-link active " id="reciente-tab" data-toggle="tab" href="#reciente" role="tab" aria-controls="reciente" aria-selected="true">MÁS RECIENTES</a>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <!--<li class="nav-item" role="presentation">
                             <a class="font-weight-bold enlace__tab nav-link" id="vistos-tab" data-toggle="tab" href="#vistos" role="tab" aria-controls="vistos" aria-selected="false">MÁS VISTOS</a>
-                        </li>
+                        </li>-->
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class=" mb-2 tab-pane fade show active" id="reciente" role="tabpanel" aria-labelledby="reciente-tab">
@@ -73,9 +110,9 @@
                             </div>
                         {% endfor %}
                         </div>
-                        <div class="tab-pane fade" id="vistos" role="tabpanel" aria-labelledby="vistos-tab">
+                        <!--<div class="tab-pane fade" id="vistos" role="tabpanel" aria-labelledby="vistos-tab">
                             Prueba 2
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

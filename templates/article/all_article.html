@@ -1,0 +1,97 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Debates | Articulos{% endblock title %}
+
+{% block script %}
+    <script src=" {% static '/js/debates/articulo.js' %} "></script>
+{% endblock script %}
+
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="row busqueda">
+                <div class="col-12 busqueda__palabra">
+                {% for titulo in all|slice:"1:2" %}
+                    {% for seccion in titulo.category.all %}
+                        {% if request.path == "/articulos/categoria/"|add:seccion.slug|add:"/" %}
+                            <h1>Todos los artículos de la sección: {{ seccion.name }}</h1>
+                        {% else %}
+                            <h1>Todos los artículos</h1>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </div>
+            </div>
+            <div class="row resultados mt-3">
+                <div class="col-12">
+                {% for todos in all %}
+                    <div class="card mb-2 agenda agenda--borde border-bottom border-secundary">
+                        <div class="row no-gutters">
+                            <div class="col-md-4 agenda__contenedor">
+                                <img loading="lazy" class="agenda__img img-fluid agenda__img--altura" src="{{ todos.photo_main.url }}" alt="{{ todos.title }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="agenda__texto">
+                                    <div class="resultados__datos mb-3 mt-2 mt-lg-0 d-flex justify-content-between">
+                                        <span class="resultados__fecha">{{ todos.date|date:"d \d\e F \d\e\l Y" }}</span>
+                                        {% for seccion in todos.category.all %}
+                                            {% if seccion.slug == "galeria-audiovisual" %}
+                                                <a class="resultados__categoria font-weight-bold" href="{% url 'gallery:galleries' %}">{{ seccion.name }}</a>
+                                            {% elif seccion.slug == "foros-en-vivo" %}
+                                                <a class="resultados__categoria font-weight-bold" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                                            {% else %}
+                                                <a class="resultados__categoria font-weight-bold" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    {% for enlace in todos.category.all %}
+                                        {% if enlace.slug == "galeria-audiovisual" %}
+                                            <a class="agenda__enlace mb-2" href="{% url 'gallery:gallery-detail' todos.slug %}">
+                                                <h5 class="agenda__titulo agenda__titulo--grande">{{ todos.title }}</h5>
+                                            </a>
+                                        {% elif enlace.slug == "foros-en-vivo" %}
+                                            <a class="agenda__enlace mb-2" href="{% url 'forum:forum-detail' todos.slug %}">
+                                                <h5 class="agenda__titulo agenda__titulo--grande">{{ todos.title }}</h5>
+                                            </a>
+                                        {% else %}
+                                            <a class="agenda__enlace mb-2" href="{% url 'article:article-detail' todos.slug %}">
+                                                <h5 class="agenda__titulo agenda__titulo--grande">{{ todos.title }}</h5>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <p class="resultados__texto">{{ todos.descent }}</p>
+                                    <p class="resultados__autor font-weight-bold">{{ todos.author.first_name }} {{ todos.author.last_name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="Page navigation">
+                    {% if is_paginated %}
+                        <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+                        {% endif %}
+                        {% for i in paginator.page_range %}
+                            {% if page_obj.number == i %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                        {% endif %}
+                        </ul>
+                    {% endif %}
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}

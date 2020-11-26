@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 from author.models import Author
 from category.models import Category
@@ -8,7 +9,7 @@ from category.models import Category
 class Schedule(models.Model):
     title = models.CharField("Título", max_length=250)
     slug = models.SlugField("Slug", max_length=250, unique=True)
-    descent = models.TextField("Bajada", max_length=500, null=True, blank=True)
+    descent = RichTextField("Bajada", max_length=500, null=True, blank=True)
     photo_main = models.ImageField("Foto para miniatura", null=True, blank=True, upload_to="agenda")
     author = models.ForeignKey(Author, verbose_name= "Autor", on_delete=models.CASCADE)
     category = models.ManyToManyField(Category, verbose_name= "Categorías")

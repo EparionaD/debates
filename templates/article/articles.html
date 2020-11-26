@@ -18,11 +18,29 @@
                     </div>
                     <div class="carousel-caption noticiaprincipal__texto">
                     {% for seccion in main.category.all %}
-                        <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                        {% if seccion.slug == "galeria-audiovisual" %}
+                            <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name }}</a>
+                        {% elif seccion.slug == "foros-en-vivo" %}
+                            <a class="categorias" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                        {% else %}
+                            <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                        {% endif %}
                     {% endfor %}
-                        <a class="noticiaprincipal__enlace" href="{% url 'article:article-detail' main.slug %}">
-                            <h5 class="noticiaprincipal__titulo">{{ main.title }}</h5>
-                        </a>
+                    {% for enlace in main.category.all %}
+                        {% if enlace.slug == "galeria-audiovisual" %}
+                            <a class="noticiaprincipal__enlace" href="{% url 'gallery:gallery-detail' main.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ main.title }}</h5>
+                            </a>
+                        {% elif enlace.slug == "foros-en-vivo" %}
+                            <a class="noticiaprincipal__enlace" href="{% url 'forum:forum-detail' main.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ main.title }}</h5>
+                            </a>
+                        {% else %}
+                            <a class="noticiaprincipal__enlace" href="{% url 'article:article-detail' main.slug %}">
+                                <h5 class="noticiaprincipal__titulo">{{ main.title }}</h5>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
                         <p class="noticiaprincipal__parrafo d-none d-sm-none d-md-none d-lg-block d-xl-block">{{ main.descent }}</p>
                     </div>
                 </div>
@@ -40,13 +58,31 @@
                         <div class="card-img-overlay articulos__detalle">
                             <div class="articulos__secciones">
                             {% for seccion in segunda.category.all %}
-                                <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                                {% if seccion.slug == "galeria-audiovisual" %}
+                                    <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name }}</a>
+                                {% elif seccion.slug == "foros-en-vivo" %}
+                                    <a class="categorias" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                                {% else %}
+                                    <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                                {% endif %}
                             {% endfor %}
                             </div>
                             <div class="articulos__contenido">
-                                <a class="articulos__enlace" href="{% url 'article:article-detail' segunda.slug %}">
-                                    <h5 class="card-title articulos__titulo">{{ segunda.title }}</h5>
-                                </a>
+                            {% for enlace in segunda.category.all %}
+                                {% if enlace.slug == "galeria-audiovisual" %}
+                                    <a class="articulos__enlace" href="{% url 'gallery:gallery-detail' segunda.slug %}">
+                                        <h5 class="card-title articulos__titulo">{{ segunda.title }}</h5>
+                                    </a>
+                                {% elif enlace.slug == "foros-en-vivo" %}
+                                     <a class="articulos__enlace" href="{% url 'forum:forum-detail' segunda.slug %}">
+                                        <h5 class="card-title articulos__titulo">{{ segunda.title }}</h5>
+                                    </a>
+                                {% else %}
+                                    <a class="articulos__enlace" href="{% url 'article:article-detail' segunda.slug %}">
+                                        <h5 class="card-title articulos__titulo">{{ segunda.title }}</h5>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
                                 <p class="card-text articulos__cuerpo d-none d-md-block">{{ segunda.descent }}</p>
                             </div>
                         </div>
@@ -60,13 +96,31 @@
                             <div loading="lazy" class="articulos1 p-3 oscuro" id ="noticia-2" style="background-image: url('{{ tercera.photo_main.url }}');">
                                 <div class="articulos1__categoria">
                                 {% for seccion in tercera.category.all %}
-                                    <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                                    {% if seccion.slug == "galeria-audiovisual" %}
+                                        <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name }}</a>
+                                    {% elif seccion.slug == "foros-en-vivo" %}
+                                        <a class="categorias" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                                    {% else %}
+                                        <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                                    {% endif %}
                                 {% endfor %}
                                 </div>
                                 <div class="articulos1__contenedor">
-                                    <a class="articulos1__enlace" href="{% url 'article:article-detail' tercera.slug %}">
-                                        <h5 class="articulos1__titulo">{{ tercera.title }}</h5>
-                                    </a>
+                                {% for enlace in tercera.category.all %}
+                                    {% if enlace.slug == "galeria-audiovisual" %}
+                                        <a class="articulos1__enlace" href="{% url 'gallery:gallery-detail' tercera.slug %}">
+                                            <h5 class="articulos1__titulo">{{ tercera.title }}</h5>
+                                        </a>
+                                    {% elif enlace.slug == "foros-en-vivo" %}
+                                        <a class="articulos1__enlace" href="{% url 'forum:forum-detail' tercera.slug %}">
+                                            <h5 class="articulos1__titulo">{{ tercera.title }}</h5>
+                                        </a>
+                                    {% else %}
+                                        <a class="articulos1__enlace" href="{% url 'article:article-detail' tercera.slug %}">
+                                            <h5 class="articulos1__titulo">{{ tercera.title }}</h5>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -78,13 +132,31 @@
                             <div loading="lazy" class="articulos1 p-3 oscuro" id ="noticia-3" style="background-image: url('{{ cuarta.photo_main.url }}');">
                                 <div class="articulos1__categoria">
                                 {% for seccion in cuarta.category.all %}
-                                    <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                                    {% if seccion.slug == "galeria-audiovisual" %}
+                                        <a class="categorias" href="{% url 'gallery:galleries' %}">{{ seccion.name }}</a>
+                                    {% elif seccion.slug == "foros-en-vivo" %}
+                                        <a class="categorias" href="{% url 'forum:forums' %}">{{ seccion.name }}</a>
+                                    {% else %}
+                                        <a class="categorias" href="{% url 'article:articles-category' seccion.slug %}">{{ seccion.name }}</a>
+                                    {% endif %}
                                 {% endfor %}
                                 </div>
                                 <div class="articulos1__contenedor">
-                                    <a class="articulos1__enlace" href="{% url 'article:article-detail' cuarta.slug %}">
-                                        <h5 class="articulos1__titulo">{{ cuarta.title }}</h5>
-                                    </a>
+                                {% for enlace in cuarta.category.all %}
+                                    {% if enlace.slug == "galeria-audiovisual" %}
+                                        <a class="articulos1__enlace" href="{% url 'gallery:gallery-detail' cuarta.slug %}">
+                                            <h5 class="articulos1__titulo">{{ cuarta.title }}</h5>
+                                        </a>
+                                    {% elif enlace.slug == "foros-en-vivo" %}
+                                        <a class="articulos1__enlace" href="{% url 'forum:forum-detail' cuarta.slug %}">
+                                            <h5 class="articulos1__titulo">{{ cuarta.title }}</h5>
+                                        </a>
+                                    {% else %}
+                                        <a class="articulos1__enlace" href="{% url 'article:article-detail' cuarta.slug %}">
+                                            <h5 class="articulos1__titulo">{{ cuarta.title }}</h5>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -97,14 +169,24 @@
             <div class="row">
                 <span class="reciente font-weight-bold" href="">MÁS RECIENTE</span>
                 <div class="col-12 secciones">
-                    <div>
-                    {% for reciente in all_articles|slice:"4:" %}
+                    <div class="">
+                    {% for reciente in all_articles|slice:"4:9" %}
                         <article class="card mb-2 articuloresumen pt-3">
                             <div class="mb-2">
                             {% for seccion in reciente.category.all %}
-                                <a href="{% url 'article:articles-category' seccion.slug %}" class="contenedordetalle__enlace">
-                                    <span class="articuloresumen__categoria font-weight-bold mr-3">{{ seccion.name }}</span>
-                                </a>
+                                {% if seccion.slug == "galeria-audiovisual" %}
+                                    <a href="{% url 'gallery:galleries' %}" class="contenedordetalle__enlace">
+                                        <span class="articuloresumen__categoria font-weight-bold mr-3">{{ seccion.name }}</span>
+                                    </a>
+                                {% elif seccion.slug == "foros-en-vivo" %}
+                                    <a href="{% url 'forum:forums' %}" class="contenedordetalle__enlace">
+                                        <span class="articuloresumen__categoria font-weight-bold mr-3">{{ seccion.name }}</span>
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'article:articles-category' seccion.slug %}" class="contenedordetalle__enlace">
+                                        <span class="articuloresumen__categoria font-weight-bold mr-3">{{ seccion.name }}</span>
+                                    </a>
+                                {% endif %}
                             {% endfor %}
                                 <span class="mr-1 font-weight-bold articuloresumen__icono"><i class="far fa-clock"></i></span>
                                 <span class="articuloresumen__fecha font-weight-bold">{{ reciente.date|date:"d \d\e F \d\e\l Y" }}</span>
@@ -115,9 +197,21 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="articuloresumen__contenedortexto">
-                                        <a class="articuloresumen__enlace" href="{% url 'article:article-detail' reciente.slug %}">
-                                            <h5 class="articuloresumen__titulo mt-3 mt-lg-0">{{ reciente.title }}</h5>
-                                        </a>
+                                    {% for enlace in reciente.category.all %}
+                                        {% if enlace.slug == "galeria-audiovisual" %}
+                                            <a class="articuloresumen__enlace" href="{% url 'gallery:gallery-detail' reciente.slug %}">
+                                                <h5 class="articuloresumen__titulo mt-3 mt-lg-0">{{ reciente.title }}</h5>
+                                            </a>
+                                        {% elif enlace.slug == "foros-en-vivo" %}
+                                            <a class="articuloresumen__enlace" href="{% url 'forum:forum-detail' reciente.slug %}">
+                                                <h5 class="articuloresumen__titulo mt-3 mt-lg-0">{{ reciente.title }}</h5>
+                                            </a>
+                                        {% else %}
+                                            <a class="articuloresumen__enlace" href="{% url 'article:article-detail' reciente.slug %}">
+                                                <h5 class="articuloresumen__titulo mt-3 mt-lg-0">{{ reciente.title }}</h5>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
                                         <p class="articuloresumen__resumen font-weight-bold d-block d-md-none d-lg-block">{{ reciente.descent }}</p>
                                         <p class="articuloresumen__autor font-weight-bold">{{ reciente.author.first_name }} {{ reciente.author.last_name }}</p>
                                     </div>
@@ -126,12 +220,22 @@
                         </article>
                     {% endfor %}
                     </div>
+
                     <div class="mb-3 ver">
                         <div class="ver__contenedor mr-2">
                             <i class="ver__icono fas fa-plus fa-xs"></i>
                         </div>
-                        <a class="ver__enlace font-weight-bold" href="">VER MÁS</a>
+                        {% for categorias in all_articles|slice:"0:1" %}
+                            {% for seccion in categorias.category.all %}
+                                {% if request.path == "/articulos/"|add:seccion.slug|add:"/" %}
+                                    <a class="ver__enlace font-weight-bold" href="{% url 'article:todos-category' seccion.slug %}">VER MÁS</a>
+                                {% else %}
+                                    <a class="ver__enlace font-weight-bold" href="{% url 'article:todos' %}">VER MÁS</a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
                     </div>
+
                 </div>
             </div>
         </section>

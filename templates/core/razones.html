@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Debates | Nuestras razones{% endblock title %}
+
+{% block script %}
+    <script src=" {% static '/js/debates/articulo.js' %} "></script>
+{% endblock script %}
+
+{% block content %}
+    <main>
+        <article class="container-fluid articulodetalle">
+            <div class="row contenedordetalle">
+                <div class="col-12">
+                    <div class="contenedordetalle__contenedorcabecera">
+                        <h1 class="contenedordetalle__titulo">nuestras razones</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3 foros justify-content-center px-0 px-lg-5">
+                <div class="col-12 col-lg-12 px-0 px-lg-5">
+                    <p class="contenedordetalle__bajada">Debates.pe es una plataforma de análisis, discusión y propuesta sobre el quehacer, la problemática y los desafíos que tenemos los peruanos y el país en general para afrontar el inesperado y preocupante escenario actual y futuro, marcado entre otros aspectos por las catastróficas consecuencias de la pandemia del coronavirus y de la severa crisis social y política que nos afecta desde hace décadas y que estalló recientemente con las marchas de protesta generalizadas en contra de la vacancia presidencial, obligando a la dimisión al gobierno de facto que se pretendió imponer desde el Parlamento.</p>
+                    <p class="contenedordetalle__bajada">El Covid19 transformó radicalmente nuestras vidas y provocó la crisis sanitaria y económica sin precedentes que ahora nos agobia. Sin embargo, como ocurre a nivel global este proceso aún no ha terminado y no sabemos cómo será finalmente el nuevo escenario, salvo que este viaje a lo desconocido todavía tiene para rato y que ya nada será igual que antes, que esa será la nueva normalidad.</p>
+                    <p class="contenedordetalle__bajada">Son tiempos excepcionalmente dramáticos y difíciles los que está afrontando el Perú, sobre todo los sectores más pobres y menos articulados a la economía formal y la institucionalidad social, debido a la pandemia que ha puesto en evidencia y profundizado nuestras severas vulnerabilidades y desigualdades de diverso orden ya preexistentes a su llegada.</p>
+                    <p class="contenedordetalle__bajada">El rechazo, indignación, frustración, desconfianza, desintegración y desesperanza que genera y alimenta la crisis social y política agudiza aún más esta grave situación provocada por coronavirus. No podemos permitirnos una situación así.</p>
+                    <p class="contenedordetalle__bajada">Por ello, también son tiempos de un Perú unido e integrado en el esfuerzo conjunto frente al implacable virus y la crisis social y política. Voluntades, compromisos, voces y acciones que sumen, rescaten lo que nos une sin ignorar lo que nos diferencia o nos ha mantenido separados hasta hoy, destaquen los esfuerzos diversos, generen consensos, transmitan confianza y esperanza.</p>
+                    <p class="contenedordetalle__bajada">Debates.pe ha surgido para sumarse a este esfuerzo, desafío y tarea común. Propiciando diálogo y discusión que nos permita unirnos e integrarnos como país, a pesar de nuestras diferencias y discrepancias; generando propuestas consensuadas y compromiso de todas las partes involucradas en cada caso o tema. Estamos convencidos y decididos a hacerlo con tu invalorable participación y apoyo.</p>
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock content %}

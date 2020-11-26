@@ -25,11 +25,11 @@
                         <div class="mb-2">
                             {% for seccion in detalle.category.all %}
                                 <a href="{% url 'gallery:galleries' %}" class="contenedordetalle__enlace">
-                                    <span class="articuloresumen__categoria font-weight-bold mr-3">{{ seccion.name }}</span>
+                                    <span class="articuloresumen__categoria mr-3">{{ seccion.name }}</span>
                                 </a>
                             {% endfor %}
                             <span class="mr-1 font-weight-bold articuloresumen__icono"><i class="far fa-clock"></i></span>
-                            <span class="articuloresumen__fecha font-weight-bold">{{ detalle.date|date:"d \d\e F \d\e\l Y" }}</span>
+                            <span class="articuloresumen__fecha">{{ detalle.date|date:"d \d\e F \d\e\l Y" }}</span>
                         </div>
                         <h1 class="contenedordetalle__titulo">{{ detalle.title }}</h1>
                         <p class="contenedordetalle__bajada">{{ detalle.descent }}</p>

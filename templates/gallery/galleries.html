@@ -181,7 +181,11 @@
                 <div class="ver__contenedor mr-2">
                     <i class="ver__icono fas fa-plus fa-xs"></i>
                 </div>
-                <a class="ver__enlace font-weight-bold" href="">VER MÁS</a>
+                {% for categorias in all_gallery|slice:"0:1" %}
+                    {% for seccion in categorias.category.all %}
+                        <a class="ver__enlace font-weight-bold" href="{% url 'article:todos-category' seccion.slug %}">VER MÁS</a>
+                    {% endfor %}
+                {% endfor %}
             </div>
         </section>
     </main>

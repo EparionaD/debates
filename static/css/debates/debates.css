@@ -382,7 +382,7 @@ p {
   @media only screen and (min-width: 992px) {
     .contenedordetalle {
       padding-top: 8rem;
-      padding-bottom: 3rem; } }
+      padding-bottom: 1.5rem; } }
 
 .articulodetalle__contenido {
   padding: 0rem 1rem; }
@@ -421,6 +421,33 @@ p {
   .enlace__tab:hover {
     color: #5A5A5A;
     text-decoration: none; }
+
+.compartir {
+  display: flex;
+  justify-content: left; }
+  @media only screen and (min-width: 992px) {
+    .compartir {
+      display: flex;
+      justify-content: right; } }
+  .compartir__enlace {
+    color: black; }
+    .compartir__enlace:hover {
+      color: #003D53; }
+  .compartir__redes {
+    color: black; }
+    .compartir__redes:hover {
+      color: #003D53; }
+
+.compartir-contenido {
+  border: 1px solid red;
+  background-color: white !important;
+  color: black !important; }
+
+.tippy-content {
+  background-color: white !important;
+  color: black !important;
+  padding: 1rem 1.5rem;
+  border: 1px solid #5A5A5A; }
 
 .busqueda {
   padding-top: 9rem; }
