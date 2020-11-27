@@ -423,12 +423,7 @@ p {
     text-decoration: none; }
 
 .compartir {
-  display: flex;
-  justify-content: left; }
-  @media only screen and (min-width: 992px) {
-    .compartir {
-      display: flex;
-      justify-content: right; } }
+  text-align: left; }
   .compartir__enlace {
     color: black; }
     .compartir__enlace:hover {
@@ -437,6 +432,9 @@ p {
     color: black; }
     .compartir__redes:hover {
       color: #003D53; }
+  @media only screen and (min-width: 992px) {
+    .compartir {
+      text-align: right; } }
 
 .compartir-contenido {
   border: 1px solid red;

@@ -55,13 +55,6 @@
                     {% endfor %}
                     </li>
                     <li class="nav-item">
-                    {% for cat in categoria %}
-                        {% if cat.slug == 'debates' %}
-                            <a class="nav-link" href="{% url 'article:articles-category' cat.slug %}">{{ cat.name|upper }}</a>
-                        {% endif %}
-                    {% endfor %}
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'forum:forums' %}">FOROS EN VIVO</a>
                     </li>
                     <li class="nav-item">
@@ -93,7 +86,7 @@
         </nav>
         <div id="buscar" class="buscador fixed-top animate__animated">
             <form class="input-group mb-3 buscador__contenedor px-3" method="GET">
-                <input type="search" class="form-control buscador__input" placeholder="Ingrese su busqueda" name="buscar" value="request.GET.buscar">>
+                <input type="search" class="form-control buscador__input" placeholder="Ingrese su busqueda" name="buscar" value="request.GET.buscar">
                 <div class="input-group-append">
                     <button class="btn btn buscador__boton text-white" type="submit" id="button-addon2">Buscar</button>
                 </div>

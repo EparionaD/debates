@@ -31,7 +31,7 @@
                     <img src="{{ schedule.photo_main.url }}" alt="" class="img-fluid">
                 </div>
                 <div class="col-12 col-lg-7 foros__video pr-0 pr-lg-5">
-                    <p class="contenedordetalle__bajada">{{ schedule.descent }}</p>
+                    <p class="contenedordetalle__bajada">{{ schedule.descent|safe }}</p>
                 </div>
             </div>
         </article>
